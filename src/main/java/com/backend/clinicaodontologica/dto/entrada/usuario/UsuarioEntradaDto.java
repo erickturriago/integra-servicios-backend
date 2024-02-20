@@ -1,47 +1,35 @@
-package com.backend.clinicaodontologica.entity;
+package com.backend.clinicaodontologica.dto.entrada.usuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+public class UsuarioEntradaDto {
 
-@Entity
-@Table(name = "usuarios")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(length = 50)
+    @NotNull(message = "El nombre del paciente no puede ser nulo")
+    @NotBlank(message = "Debe especificarse el nombre del paciente")
+    @Size(max = 50, message = "El nombre debe tener hasta 50 caracteres")
     private String nombre;
 
-    @Column(length = 50)
+    @Size(max = 50, message = "El apellido debe tener hasta 50 caracteres")
+    @NotBlank(message = "Debe especificarse el apellido del paciente")
     private String apellido;
-
-    @NotBlank
+    @NotBlank(message = "Debe especificarse la contraseña del usuario")
     private String contraseña;
-
-    @Email
-    @NotBlank
-    @Size(max=80)
+    //@Email
+    @NotBlank(message = "Debe especificarse el correo del usuario")
     private String email;
-
-    @Column(length = 50)
-    private int cedula;
+    @NotNull(message = "La cedula del usuario no puede ser nulo")
+    private Integer cedula;
+    @FutureOrPresent(message = "La fecha no puede ser anterior al día de hoy")
+    @NotNull(message = "Debe especificarse la fecha de registro del usuario")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaRegistro;
+    //private Set<String> roles;
 
-    public Usuario() {
-    }
-
-    public Usuario(String nombre, String apellido, String contraseña, String email, int cedula, LocalDate fechaRegistro) {
+    public UsuarioEntradaDto(String nombre, String apellido, String contraseña, String email, int cedula, LocalDate fechaRegistro) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.contraseña = contraseña;
@@ -50,14 +38,12 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-
-
-    public Long getId() {
-        return id;
+    public UsuarioEntradaDto(String email,String contraseña) {
+        this.email = email;
+        this.contraseña = contraseña;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public UsuarioEntradaDto() {
     }
 
     public String getNombre() {
@@ -107,8 +93,4 @@ public class Usuario {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
-
-    //@ManyToMany(fetch = FetchType.EAGER, targetEntity = Rol.class,cascade = CascadeType.PERSIST)
-    //@JoinTable(name = "usuarios_roles",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    //private Set<Rol> roles;
 }

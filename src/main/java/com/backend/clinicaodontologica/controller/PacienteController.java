@@ -6,6 +6,7 @@ import com.backend.clinicaodontologica.dto.salida.paciente.PacienteSalidaDto;
 import com.backend.clinicaodontologica.exceptions.ResourceNotFoundException;
 import com.backend.clinicaodontologica.service.IPacienteService;
 import com.backend.clinicaodontologica.service.impl.OdontologoService;
+import com.backend.clinicaodontologica.utils.JsonPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,10 @@ public class PacienteController {
 
     //POST
     @PostMapping("/registrar")
-    public ResponseEntity<PacienteSalidaDto> registrarPaciente(@RequestBody @Valid PacienteEntradaDto paciente) {
-        LOGGER.info("PAciente: "+paciente);
+    public ResponseEntity<?> registrarPaciente(@RequestBody @Valid PacienteEntradaDto paciente) {
+        LOGGER.info("PAciente: "+ JsonPrinter.toString(paciente));
         return new ResponseEntity<>(pacienteService.registrarPaciente(paciente), HttpStatus.CREATED);
+        //return new ResponseEntity<>("Paciente registrado correctamente", HttpStatus.OK);
     }
 
 

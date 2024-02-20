@@ -1,47 +1,24 @@
-package com.backend.clinicaodontologica.entity;
+package com.backend.clinicaodontologica.dto.salida.usuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Set;
 
-
-@Entity
-@Table(name = "usuarios")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(length = 50)
+public class UsuarioSalidaDto {
+    private int id;
     private String nombre;
-
-    @Column(length = 50)
     private String apellido;
-
-    @NotBlank
     private String contraseña;
-
-    @Email
-    @NotBlank
-    @Size(max=80)
     private String email;
-
-    @Column(length = 50)
-    private int cedula;
+    private Integer cedula;
     private LocalDate fechaRegistro;
+    //private Set<String> roles;
 
-    public Usuario() {
-    }
+    public UsuarioSalidaDto(){}
 
-    public Usuario(String nombre, String apellido, String contraseña, String email, int cedula, LocalDate fechaRegistro) {
+    public UsuarioSalidaDto(int id, String nombre, String apellido, String contraseña, String email, Integer cedula, LocalDate fechaRegistro) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.contraseña = contraseña;
@@ -50,13 +27,11 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -92,11 +67,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getCedula() {
+    public Integer getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(Integer cedula) {
         this.cedula = cedula;
     }
 
@@ -107,8 +82,4 @@ public class Usuario {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
-
-    //@ManyToMany(fetch = FetchType.EAGER, targetEntity = Rol.class,cascade = CascadeType.PERSIST)
-    //@JoinTable(name = "usuarios_roles",joinColumns = @JoinColumn(name="usuario_id"),inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    //private Set<Rol> roles;
 }

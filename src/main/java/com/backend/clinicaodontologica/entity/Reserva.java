@@ -10,37 +10,19 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Set;
-
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "usuarios")
-public class Usuario {
+public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 50)
-    private String nombre;
+    private Long idRecurso;
 
-    @Column(length = 50)
-    private String apellido;
-
-    @NotBlank
-    private String contraseña;
-
-    @Email
-    @NotBlank
-    @Size(max=80)
-    private String email;
-
-    @Column(length = 50)
-    private int cedula;
-    private LocalDate fechaRegistro;
-
-    private int rol;
+    
 }

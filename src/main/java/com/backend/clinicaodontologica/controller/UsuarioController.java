@@ -1,16 +1,11 @@
 package com.backend.clinicaodontologica.controller;
 
-import com.backend.clinicaodontologica.dto.entrada.paciente.PacienteEntradaDto;
 import com.backend.clinicaodontologica.dto.entrada.usuario.UsuarioEntradaDto;
 import com.backend.clinicaodontologica.dto.entrada.usuario.UsuarioLoginEntradaDto;
-import com.backend.clinicaodontologica.dto.modificacion.PacienteModificacionEntradaDto;
 import com.backend.clinicaodontologica.dto.modificacion.UsuarioModificacionEntradaDto;
-import com.backend.clinicaodontologica.dto.salida.paciente.PacienteSalidaDto;
 import com.backend.clinicaodontologica.dto.salida.usuario.UsuarioSalidaDto;
 import com.backend.clinicaodontologica.exceptions.ResourceNotFoundException;
-import com.backend.clinicaodontologica.service.IPacienteService;
 import com.backend.clinicaodontologica.service.IUsuarioService;
-import com.backend.clinicaodontologica.service.impl.OdontologoService;
 import com.backend.clinicaodontologica.service.impl.UsuarioService;
 import com.backend.clinicaodontologica.utils.JsonPrinter;
 import org.slf4j.Logger;

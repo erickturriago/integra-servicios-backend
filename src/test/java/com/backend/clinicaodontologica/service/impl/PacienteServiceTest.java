@@ -3,15 +3,11 @@ package com.backend.clinicaodontologica.service.impl;
 import com.backend.clinicaodontologica.dto.entrada.paciente.DomicilioEntradaDto;
 import com.backend.clinicaodontologica.dto.entrada.paciente.PacienteEntradaDto;
 import com.backend.clinicaodontologica.dto.salida.paciente.PacienteSalidaDto;
-import com.backend.clinicaodontologica.entity.Paciente;
 import com.backend.clinicaodontologica.exceptions.ResourceNotFoundException;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
 import java.util.List;

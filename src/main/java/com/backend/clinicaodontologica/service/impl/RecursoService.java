@@ -1,23 +1,12 @@
 package com.backend.clinicaodontologica.service.impl;
 
-import com.backend.clinicaodontologica.dto.entrada.paciente.PacienteEntradaDto;
 import com.backend.clinicaodontologica.dto.entrada.recurso.RecursoEntradaDto;
-import com.backend.clinicaodontologica.dto.entrada.turno.TurnoEntradaDto;
-import com.backend.clinicaodontologica.dto.modificacion.PacienteModificacionEntradaDto;
-import com.backend.clinicaodontologica.dto.modificacion.TurnoModificacionEntradaDto;
 import com.backend.clinicaodontologica.dto.salida.odontologo.OdontologoSalidaDto;
-import com.backend.clinicaodontologica.dto.salida.paciente.PacienteSalidaDto;
-import com.backend.clinicaodontologica.dto.salida.turno.TurnoSalidaDto;
-import com.backend.clinicaodontologica.entity.Odontologo;
-import com.backend.clinicaodontologica.entity.Paciente;
+import com.backend.clinicaodontologica.dto.salida.recurso.RecursoSalidaDto;
 import com.backend.clinicaodontologica.entity.Recurso;
-import com.backend.clinicaodontologica.entity.Turno;
 import com.backend.clinicaodontologica.exceptions.BadRequestException;
-import com.backend.clinicaodontologica.exceptions.ResourceNotFoundException;
 import com.backend.clinicaodontologica.repository.RecursoRepository;
-import com.backend.clinicaodontologica.repository.TurnoRepository;
 import com.backend.clinicaodontologica.service.IRecursoService;
-import com.backend.clinicaodontologica.service.ITurnoService;
 import com.backend.clinicaodontologica.utils.JsonPrinter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -44,8 +33,18 @@ public class RecursoService implements IRecursoService {
     public String registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException {
         Recurso recursoEntidad = modelMapper.map(recurso,Recurso.class);
         Recurso recursoGuardado = recursoRepository.save(recursoEntidad);
-        LOGGER.info("Recurso guardado: {}", recursoGuardado);
+        LOGGER.info("Recurso guardado: {}", JsonPrinter.toString(recursoGuardado));
         return "Registrado";
+    }
+
+    @Override
+    public List<RecursoSalidaDto> listarRecursos() throws BadRequestException{
+        List<RecursoSalidaDto> recursos = recursoRepository.findAll().stream()
+                .map(r -> modelMapper.map(r, RecursoSalidaDto.class)).toList();
+
+        LOGGER.info("Listado de todos los recursos: {}", JsonPrinter.toString(recursos));
+
+        return recursos;
     }
 
     private void configureMapping() {

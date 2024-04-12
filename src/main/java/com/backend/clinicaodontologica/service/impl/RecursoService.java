@@ -41,11 +41,11 @@ public class RecursoService implements IRecursoService {
     }
 
     @Override
-    public String registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException {
+    public Long registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException {
         Recurso recursoEntidad = modelMapper.map(recurso,Recurso.class);
         Recurso recursoGuardado = recursoRepository.save(recursoEntidad);
         LOGGER.info("Recurso guardado: {}", recursoGuardado);
-        return "Registrado";
+        return recursoGuardado.getId();
     }
 
     private void configureMapping() {

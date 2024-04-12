@@ -2,10 +2,18 @@ package com.backend.clinicaodontologica.dto.entrada.usuario;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioEntradaDto {
 
     @NotNull(message = "El nombre del paciente no puede ser nulo")
@@ -27,70 +35,6 @@ public class UsuarioEntradaDto {
     @NotNull(message = "Debe especificarse la fecha de registro del usuario")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaRegistro;
-    //private Set<String> roles;
+    private int rol;
 
-    public UsuarioEntradaDto(String nombre, String apellido, String contraseña, String email, int cedula, LocalDate fechaRegistro) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.contraseña = contraseña;
-        this.email = email;
-        this.cedula = cedula;
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public UsuarioEntradaDto(String email,String contraseña) {
-        this.email = email;
-        this.contraseña = contraseña;
-    }
-
-    public UsuarioEntradaDto() {
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
 }

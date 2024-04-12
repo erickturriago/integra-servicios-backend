@@ -2,9 +2,7 @@ package com.backend.clinicaodontologica.service;
 
 import com.backend.clinicaodontologica.dto.entrada.usuario.UsuarioEntradaDto;
 import com.backend.clinicaodontologica.dto.entrada.usuario.UsuarioLoginEntradaDto;
-import com.backend.clinicaodontologica.dto.modificacion.PacienteModificacionEntradaDto;
 import com.backend.clinicaodontologica.dto.modificacion.UsuarioModificacionEntradaDto;
-import com.backend.clinicaodontologica.dto.salida.paciente.PacienteSalidaDto;
 import com.backend.clinicaodontologica.dto.salida.usuario.UsuarioSalidaDto;
 import com.backend.clinicaodontologica.exceptions.ResourceNotFoundException;
 

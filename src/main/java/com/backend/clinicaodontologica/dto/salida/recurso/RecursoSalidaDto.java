@@ -1,31 +1,24 @@
-package com.backend.clinicaodontologica.entity;
+package com.backend.clinicaodontologica.dto.salida.recurso;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "recursos")
-public class Recurso {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RecursoSalidaDto {
     private Long id;
     private String nombre;
     private String horaInicio;
     private String horaFin;
     private int tiempoMinimoReserva;
     private int tiempoMaximoReserva;
-
-    @ElementCollection
-    @CollectionTable(name = "dias_disponible_recurso")
-    @Column(name = "dias_disponible_recurso")
     private List<String> diasDisponible;
 }

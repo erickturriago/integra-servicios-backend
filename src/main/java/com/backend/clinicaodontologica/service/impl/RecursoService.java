@@ -33,13 +33,8 @@ public class RecursoService implements IRecursoService {
     public Long registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException {
         Recurso recursoEntidad = modelMapper.map(recurso,Recurso.class);
         Recurso recursoGuardado = recursoRepository.save(recursoEntidad);
-<<<<<<< HEAD
         LOGGER.info("Recurso guardado: {}", recursoGuardado);
         return recursoGuardado.getId();
-=======
-        LOGGER.info("Recurso guardado: {}", JsonPrinter.toString(recursoGuardado));
-        return "Registrado";
->>>>>>> fd5e0f20ebc98e33f0375b20aab2623dcbf62b5c
     }
 
     @Override

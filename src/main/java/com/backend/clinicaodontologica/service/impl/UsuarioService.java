@@ -29,10 +29,14 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioSalidaDto registrarUsuario(UsuarioEntradaDto usuario) {
         //convertimos mediante el mapper de dtoEntrada a entidad
         LOGGER.info("UsuarioEntradaDTO: " + JsonPrinter.toString(usuario));
+
         Usuario usuarioEntidad = modelMapper.map(usuario, Usuario.class);
+        LOGGER.info("Usuario Entidad Entrada: " + JsonPrinter.toString(usuarioEntidad));
 
         //mandamos a persistir a la capa dao y obtenemos una entidad
         Usuario usuarioAPersistir = usuarioRepository.save(usuarioEntidad);
+        LOGGER.info("Usuario Entidad Guardado: " + JsonPrinter.toString(usuarioAPersistir));
+
         //transformamos la entidad obtenida en salidaDto
         UsuarioSalidaDto usuarioSalidaDto = modelMapper.map(usuarioAPersistir, UsuarioSalidaDto.class);
         LOGGER.info("UsuarioSalidaDto: " + JsonPrinter.toString(usuarioSalidaDto));

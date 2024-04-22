@@ -1,16 +1,16 @@
 package com.backend.parcial.test;
 
-import com.backend.clinicaodontologica.dao.impl.OdontologoDaoH2;
-import com.backend.clinicaodontologica.dao.impl.OdontologoDaoMemoria;
-import com.backend.clinicaodontologica.model.Odontologo;
+import com.backend.integraservicios.dao.impl.OdontologoDaoH2;
+import com.backend.integraservicios.dao.impl.OdontologoDaoMemoria;
+import com.backend.integraservicios.model.Odontologo;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import com.backend.clinicaodontologica.service.OdontologoService;
-import com.backend.clinicaodontologica.dao.H2Connection;
-import com.backend.clinicaodontologica.dao.iDao;
+import com.backend.integraservicios.service.OdontologoService;
+import com.backend.integraservicios.dao.H2Connection;
+import com.backend.integraservicios.dao.iDao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

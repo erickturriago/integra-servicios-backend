@@ -9,25 +9,29 @@ import com.backend.integraservicios.entity.Odontologo;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.repository.OdontologoRepository;
 import com.backend.integraservicios.service.IOdontologoService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.Entity;
 import java.util.List;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
 @Service
 public class OdontologoService implements IOdontologoService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OdontologoService.class);
     private final OdontologoRepository odontologoRepository;
     private final ModelMapper modelMapper;
-
-
-    public OdontologoService(OdontologoRepository odontologoRepository, ModelMapper modelMapper) {
-        this.odontologoRepository = odontologoRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public OdontologoSalidaDto registrarOdontologo(OdontologoEntradaDto odontologo) {
         Odontologo odGuardado = odontologoRepository.save(dtoEntradaAEntidad(odontologo));
@@ -102,7 +106,7 @@ public class OdontologoService implements IOdontologoService {
         modelMapper.typeMap(OdontologoSalidaDto.class, Odontologo.class);
         modelMapper.typeMap(OdontologoModificacionEntradaDto.class, Odontologo.class);
     }
-
+    @PostConstruct
     public ModelMapper getModelMapper() {
         return modelMapper;
     }

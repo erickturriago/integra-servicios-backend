@@ -3,9 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,15 +16,21 @@ public class Recurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
     private String descripcion;
-    private String imagePath;
+    private String imageUrl;
 
-    @ManyToOne()
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "unidad_id") // Nombre de la columna de clave foránea
+    private Unidad unidad;
 
+    @ManyToMany
+    @JoinTable(
+            name = "recurso_horario", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "recurso_id"),
+            inverseJoinColumns = @JoinColumn(name = "horario_id")
+    )
+    private List<HorarioDisponibleRecurso> horarioDisponible;
 
-    @ManyToMany(mappedBy = "recursos")
-    public List<Reserva> reservas = new ArrayList<>();
 }

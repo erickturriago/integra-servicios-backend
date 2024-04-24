@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IRecursoService {
 
-    Long registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException;
+    Object registrarRecurso(RecursoEntradaDto recurso) throws BadRequestException;
 
     List<RecursoSalidaDto> listarRecursos() throws BadRequestException;
 

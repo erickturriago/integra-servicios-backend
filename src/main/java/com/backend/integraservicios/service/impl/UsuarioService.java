@@ -9,22 +9,29 @@ import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.repository.UsuarioRepository;
 import com.backend.integraservicios.service.IUsuarioService;
 import com.backend.integraservicios.utils.JsonPrinter;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.Entity;
 import java.util.List;
+@Getter
+@Setter
+@AllArgsConstructor
 @Service
 public class UsuarioService implements IUsuarioService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
     private UsuarioRepository usuarioRepository;
     private ModelMapper modelMapper;
-    public UsuarioService(UsuarioRepository usuarioRepository, ModelMapper modelMapper) {
-        this.usuarioRepository = usuarioRepository;
-        this.modelMapper = modelMapper;
-    }
+
     @Override
     public UsuarioSalidaDto registrarUsuario(UsuarioEntradaDto usuario) {
         //convertimos mediante el mapper de dtoEntrada a entidad
@@ -91,7 +98,7 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioSalidaDto buscarUsuarioPorEmail(int dni) {
         return null;
     }
-
+    @PostConstruct
     private void configureMapping() {
         modelMapper.typeMap(UsuarioEntradaDto.class, Usuario.class);
         modelMapper.typeMap(Usuario.class, UsuarioSalidaDto.class);

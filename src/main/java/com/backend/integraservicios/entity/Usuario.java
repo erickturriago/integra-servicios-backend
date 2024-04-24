@@ -43,7 +43,4 @@ public class Usuario {
     private LocalDate fechaRegistro;
 
     private int rol;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Recurso> recursos;
 }

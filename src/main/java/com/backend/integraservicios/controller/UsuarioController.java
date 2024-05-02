@@ -15,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -44,7 +47,9 @@ public class UsuarioController {
             return new ResponseEntity<>(usuarioSalida, HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
+            Map<String, String> responseBody = new HashMap<>();
+            responseBody.put("error", "Usuario no existe");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
         }
     }
 

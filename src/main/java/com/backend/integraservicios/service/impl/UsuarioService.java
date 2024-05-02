@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
+import java.util.Collection;
 import java.util.List;
 @Getter
 @Setter
@@ -33,9 +34,18 @@ public class UsuarioService implements IUsuarioService {
     private ModelMapper modelMapper;
 
     @Override
-    public UsuarioSalidaDto registrarUsuario(UsuarioEntradaDto usuario) {
+    public Object registrarUsuario(UsuarioEntradaDto usuario) {
         //convertimos mediante el mapper de dtoEntrada a entidad
         LOGGER.info("UsuarioEntradaDTO: " + JsonPrinter.toString(usuario));
+
+        List<Usuario> usuarioBuscado = usuarioRepository.findByCedula(usuario.getCedula());
+        //Usuario usuarioBuscado = null;
+
+
+        if(usuarioBuscado.size()>0){
+            LOGGER.info("Usuario ya registrado");
+            return "La cedula ya se encuentra registrado";
+        }
 
         Usuario usuarioEntidad = modelMapper.map(usuario, Usuario.class);
         LOGGER.info("Usuario Entidad Entrada: " + JsonPrinter.toString(usuarioEntidad));

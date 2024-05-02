@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IUsuarioService {
 
-    UsuarioSalidaDto registrarUsuario(UsuarioEntradaDto usuario);
+    Object registrarUsuario(UsuarioEntradaDto usuario);
 
     UsuarioSalidaDto iniciarSesion(UsuarioLoginEntradaDto usuario);
 

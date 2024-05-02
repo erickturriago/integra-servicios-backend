@@ -11,8 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UsuarioSalidaDto {
     private int id;
-    private String nombre;
-    private String apellido;
+    private String fullname;
     private String contraseña;
     private String email;
     private Integer cedula;

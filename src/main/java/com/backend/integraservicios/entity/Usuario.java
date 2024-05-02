@@ -25,10 +25,7 @@ public class Usuario {
     private Long id;
 
     @Column(length = 50)
-    private String nombre;
-
-    @Column(length = 50)
-    private String apellido;
+    private String fullname;
 
     @NotBlank
     private String contraseña;

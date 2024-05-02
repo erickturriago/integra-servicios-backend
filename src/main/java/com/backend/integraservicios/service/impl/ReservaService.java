@@ -83,7 +83,17 @@ public class ReservaService implements IReservaService {
 
     @Override
     public List<ReservaSalidaDto> listarReservas() throws BadRequestException {
-        return null;
+        List<ReservaSalidaDto> reservas = reservaRepository.findAll().stream()
+                .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
+
+        for (ReservaSalidaDto reserva: reservas) {
+            reserva.setRecurso(modelMapper.map(recursoRepository.findById(reserva.getRecurso().getId()).orElse(null),RecursoSalidaDto.class));
+            reserva.setUsuario(modelMapper.map(usuarioRepository.findById(reserva.getUsuario().getId()).orElse(null),UsuarioSalidaDto.class));
+        }
+
+        LOGGER.info("Listado de todas las reservas: {}", JsonPrinter.toString(reservas));
+
+        return reservas;
     }
 
     @Override

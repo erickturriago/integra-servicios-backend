@@ -3,8 +3,10 @@ package com.backend.integraservicios.service.impl;
 import com.backend.integraservicios.dto.entrada.usuario.UsuarioEntradaDto;
 import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
 import com.backend.integraservicios.dto.modificacion.UsuarioModificacionEntradaDto;
+import com.backend.integraservicios.dto.salida.reserva.ReservaSalidaDto;
 import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
 import com.backend.integraservicios.entity.Usuario;
+import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.repository.UsuarioRepository;
 import com.backend.integraservicios.service.IUsuarioService;
@@ -23,6 +25,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -86,7 +90,11 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public List<UsuarioSalidaDto> listarUsuarios() {
-        return null;
+        List<UsuarioSalidaDto> usuarios = usuarioRepository.findAll().stream()
+                .map(u -> modelMapper.map(u, UsuarioSalidaDto.class))
+                .collect(Collectors.toList());
+
+        return usuarios;
     }
 
     @Override

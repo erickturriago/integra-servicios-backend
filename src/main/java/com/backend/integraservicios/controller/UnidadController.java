@@ -3,6 +3,7 @@ package com.backend.integraservicios.controller;
 import com.backend.integraservicios.dto.entrada.recurso.RecursoEntradaDto;
 import com.backend.integraservicios.dto.entrada.unidad.UnidadEntradaDto;
 import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
+import com.backend.integraservicios.dto.salida.unidad.UnidadSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.service.impl.RecursoService;
 import com.backend.integraservicios.service.impl.UnidadService;
@@ -34,8 +35,8 @@ public class UnidadController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<RecursoSalidaDto>> listarRecursos() throws BadRequestException {
-        //return new ResponseEntity<>(recursoService.listarRecursos(), HttpStatus.OK);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<List<UnidadSalidaDto>> listarUnidades() throws BadRequestException {
+        return new ResponseEntity<>(unidadService.listarUnidades(), HttpStatus.OK);
+        //return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

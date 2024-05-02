@@ -4,6 +4,7 @@ import com.backend.integraservicios.dto.entrada.usuario.UsuarioEntradaDto;
 import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
 import com.backend.integraservicios.dto.modificacion.UsuarioModificacionEntradaDto;
 import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
+import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 
 import java.util.List;

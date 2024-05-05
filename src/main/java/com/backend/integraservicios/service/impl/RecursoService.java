@@ -92,7 +92,7 @@ public class RecursoService implements IRecursoService {
         List<RecursoSalidaDto> recursos = recursoRepository.findAll().stream()
                 .map(r -> modelMapper.map(r, RecursoSalidaDto.class)).toList();
 
-        LOGGER.info("Listado de todos los recursos: {}", JsonPrinter.toString(recursos));
+        //LOGGER.info("Listado de todos los recursos: {}", JsonPrinter.toString(recursos));
 
         return recursos;
     }

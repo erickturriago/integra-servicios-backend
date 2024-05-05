@@ -1,5 +1,6 @@
 package com.backend.integraservicios.security;
 
+import com.backend.integraservicios.utils.JsonPrinter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 @Component
+@AllArgsConstructor
 public class TokenUtils {
     private static String ACCESS_TOKEN_SECRET = "ro7EeEuspEvbEUJK1o7QLMvsrYD72hfopDdo34lBbR2OdRAm2rqiFWmy04flLtXG";
     private static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
+
+    UserDetailServiceImpl userDetailsService;
     public static String createToken(String nombre, String email){
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
@@ -41,9 +45,12 @@ public class TokenUtils {
                     .getBody();
 
             String email = claims.getSubject();
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
 
+            System.out.println("Autenticando");
+            System.out.println(JsonPrinter.toString(userDetails.getAuthorities()));
 
-            return new UsernamePasswordAuthenticationToken(email, null, Collections.emptyList());
+            return new UsernamePasswordAuthenticationToken(email, null, userDetails.getAuthorities());
         } catch (JwtException e) {
             return null;
         }

@@ -19,7 +19,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-
+        System.out.println("attemptAuthentication");
         AuthCredentials authCredentials = new AuthCredentials();
 
         try{
@@ -28,10 +28,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         }
 
+        System.out.println(authCredentials);
+
         UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
                 authCredentials.getEmail(),
                 authCredentials.getContraseña()
         );
+
+        System.out.println(usernamePAT);
 
         return getAuthenticationManager().authenticate(usernamePAT);
     }
@@ -45,8 +49,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         String token = TokenUtils.createToken(userDetails.getNombre(),userDetails.getUsername());
 
+        System.out.println("Token JWT generado: " + token);
+
         response.addHeader("Authorization","Bearer "+token);
         response.getWriter().flush();
+        System.out.println("successfulAuthentication");
 
         super.successfulAuthentication(request, response, chain, authResult);
     }

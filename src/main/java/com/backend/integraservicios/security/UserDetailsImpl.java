@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -16,14 +17,17 @@ public class UserDetailsImpl implements UserDetails {
     private final Usuario usuario;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = Collections.emptyList();
+
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 
         if (usuario.getRol() == 1) {
-            authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else if (usuario.getRol() == 2) {
-            authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-        }
-        return authorities;
+            list.add(new SimpleGrantedAuthority("ROLE_USER"));
+        } else if (usuario.getRol() == 3) {
+        list.add(new SimpleGrantedAuthority("ROLE_ALIADO"));
+    }
+        return list;
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,7 +19,7 @@ import java.io.IOException;
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailServiceImpl userDetailsService;
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -29,10 +30,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
         if (bearerToken != null && bearerToken.startsWith("Bearer")) {
             String token = bearerToken.replace("Bearer ", "");
-            TokenUtils tokenUtils = new TokenUtils(); // Create an instance
+            TokenUtils tokenUtils = new TokenUtils(userDetailsService); // Create an instance
 
             UsernamePasswordAuthenticationToken usernamePAT = tokenUtils.getAuthentication(token);
+            usernamePAT.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(usernamePAT);
+            System.out.println(usernamePAT);
         }
 
         filterChain.doFilter(request, response);

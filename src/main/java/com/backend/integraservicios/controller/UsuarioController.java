@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,8 +30,9 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    //POST
+
     @PostMapping("/registrar")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) {
         LOGGER.info("Inicia registro");
         LOGGER.info("Usuario request: "+ JsonPrinter.toString(usuario));
@@ -39,23 +41,27 @@ public class UsuarioController {
 
     //GET
     @GetMapping("{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UsuarioSalidaDto> obtenerUsuarioPorId(@PathVariable Long id) {
         return new ResponseEntity<>(usuarioService.buscarUsuarioPorId(id), HttpStatus.OK);
     }
 
     @GetMapping("/listar")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<UsuarioSalidaDto>> listarUsuarios() {
         return new ResponseEntity<>(usuarioService.listarUsuarios(), HttpStatus.OK);
     }
 
     //PUT
     @PutMapping("/actualizar")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public UsuarioSalidaDto actualizarPaciente(@RequestBody UsuarioModificacionEntradaDto usuario) {
         return usuarioService.actualizarUsuario(usuario);
     }
 
     //DELETE
     @DeleteMapping("eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> eliminarPaciente(@PathVariable Long id) throws ResourceNotFoundException {
         usuarioService.eliminarUsuario(id);
         return new ResponseEntity<>("Usuario eliminado correctamente", HttpStatus.OK);

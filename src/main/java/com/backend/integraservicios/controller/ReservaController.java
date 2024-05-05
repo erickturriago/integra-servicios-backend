@@ -24,14 +24,14 @@ public class ReservaController {
     public ReservaController(ReservaService reservaService) {
         this.reservaService = reservaService;
     }
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarReserva(@RequestBody ReservaEntradaDto reserva) throws BadRequestException {
         LOGGER.info("Reserva: "+ JsonPrinter.toString(reserva));
         return new ResponseEntity<>(reservaService.registrarReserva(reserva), HttpStatus.OK);
         //return new ResponseEntity<>("Hecho", HttpStatus.OK);
     }
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/listar")
     public ResponseEntity<List<ReservaSalidaDto>> listarRecursos() throws BadRequestException {
         return new ResponseEntity<>(reservaService.listarReservas(), HttpStatus.OK);

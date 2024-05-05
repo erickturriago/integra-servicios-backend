@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
@@ -19,7 +21,6 @@ public class IntegraServiciosApplication {
         SpringApplication.run(IntegraServiciosApplication.class, args);
         logger.info("Integraservicios is now running...");
     }
-
 
     @Bean
     public ModelMapper modelMapper() {

@@ -1,8 +1,10 @@
 package com.backend.integraservicios.security;
 
+
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,6 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +31,20 @@ public class WebSecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
-
+    /*
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Reemplace "https://www.su-dominio-productivo.com" con su dominio real
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        //configuration.setAllowCredentials(true); // Habilitar si su backend maneja credenciales (tokens)
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Aplica CORS a todas las rutas
+        return source;
+    }
+     */
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 
@@ -32,10 +52,13 @@ public class WebSecurityConfig {
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
 
+
         return http
+                .cors()
+                .and()
                 .csrf().disable()
-                .authorizeRequests()
-                //.antMatchers("/auth/register").permitAll()
+                .authorizeHttpRequests()
+                .antMatchers("/auth/register").permitAll()
                 //.antMatchers("/recursos/listar").hasAnyRole( "ADMIN","USER")
                 //.antMatchers("/recursos/listar").hasAnyRole( "ALIADO")
                 .anyRequest().permitAll()

@@ -5,11 +5,13 @@ import com.backend.integraservicios.dto.entrada.unidad.UnidadEntradaDto;
 import com.backend.integraservicios.dto.salida.unidad.UnidadSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 
+import java.util.List;
+
 public interface IUnidadService {
 
     Object registrarUnidad(UnidadEntradaDto unidad) throws BadRequestException;
 
-    //List<RecursoSalidaDto> listarRecursos() throws BadRequestException;
+    List<UnidadSalidaDto> listarUnidades();
 
     //TurnoSalidaDto buscarTurnoPorId(Long id);
 

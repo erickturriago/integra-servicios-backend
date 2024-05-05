@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -53,6 +54,16 @@ public class UnidadService implements IUnidadService {
         // Guardar la unidad
         return modelMapper.map(unidadRepository.save(unidadEntidad),UnidadSalidaDto.class);
     }
+
+    @Override
+    public List<UnidadSalidaDto> listarUnidades() {
+        List<UnidadSalidaDto> unidades = unidadRepository.findAll().stream()
+                .map(u -> modelMapper.map(u, UnidadSalidaDto.class))
+                .collect(Collectors.toList());
+
+        return unidades;
+    }
+
     @PostConstruct
     private void configureMapping() {
         modelMapper.typeMap(UnidadEntradaDto.class, Unidad.class);

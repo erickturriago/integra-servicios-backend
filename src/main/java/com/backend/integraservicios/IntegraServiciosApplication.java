@@ -15,7 +15,7 @@ public class IntegraServiciosApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(IntegraServiciosApplication.class, args);
-        logger.info("ClinicaOdontologica is now running...");
+        logger.info("Integraservicios is now running...");
     }
 
 

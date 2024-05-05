@@ -26,13 +26,6 @@ public class UnidadController {
         this.unidadService = unidadService;
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUnidad(@RequestBody UnidadEntradaDto unidad) throws BadRequestException {
-        LOGGER.info("Unidad: "+ JsonPrinter.toString(unidad));
-        return new ResponseEntity<>(unidadService.registrarUnidad(unidad), HttpStatus.OK);
-        //return new ResponseEntity<>("Hecho", HttpStatus.OK);
-    }
-
     @GetMapping("/listar")
     public ResponseEntity<List<RecursoSalidaDto>> listarRecursos() throws BadRequestException {
         //return new ResponseEntity<>(recursoService.listarRecursos(), HttpStatus.OK);

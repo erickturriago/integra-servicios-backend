@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +26,14 @@ public class RecursoController {
     }
 
     @PostMapping("/registrar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> registrarRecurso(@RequestBody RecursoEntradaDto recurso) throws BadRequestException {
         LOGGER.info("Recurso: "+ JsonPrinter.toString(recurso));
         return new ResponseEntity<>(recursoService.registrarRecurso(recurso), HttpStatus.OK);
         //return new ResponseEntity<>("Hecho", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     @GetMapping("/listar")
     public ResponseEntity<List<RecursoSalidaDto>> listarRecursos() throws BadRequestException {
         return new ResponseEntity<>(recursoService.listarRecursos(), HttpStatus.OK);

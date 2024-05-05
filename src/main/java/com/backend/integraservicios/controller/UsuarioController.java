@@ -37,23 +37,6 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.registrarUsuario(usuario), HttpStatus.OK);
     }
 
-    @PostMapping("/iniciarSesion")
-    public ResponseEntity<?> iniciarSesion(@Valid @RequestBody UsuarioLoginEntradaDto usuario) {
-        LOGGER.info("Inicia registro");
-        LOGGER.info("Usuario request: "+ JsonPrinter.toString(usuario));
-        UsuarioSalidaDto usuarioSalida = usuarioService.iniciarSesion(usuario);
-
-        if(usuarioSalida!=null){
-            return new ResponseEntity<>(usuarioSalida, HttpStatus.OK);
-        }
-        else{
-            Map<String, String> responseBody = new HashMap<>();
-            responseBody.put("error", "Usuario no existe");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
-        }
-    }
-
-
     //GET
     @GetMapping("{id}")
     public ResponseEntity<UsuarioSalidaDto> obtenerUsuarioPorId(@PathVariable Long id) {

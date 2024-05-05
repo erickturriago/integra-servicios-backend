@@ -1,3 +1,5 @@
+/*
+
 package com.backend.integraservicios.controller;
 
 import org.springframework.context.annotation.Configuration;
@@ -15,3 +17,4 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods("*");
     }
 }
+*/

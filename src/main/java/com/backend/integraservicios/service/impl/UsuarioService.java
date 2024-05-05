@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,6 +32,7 @@ public class UsuarioService implements IUsuarioService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
     private UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
     private ModelMapper modelMapper;
 
     @Override
@@ -38,17 +40,26 @@ public class UsuarioService implements IUsuarioService {
         //convertimos mediante el mapper de dtoEntrada a entidad
         LOGGER.info("UsuarioEntradaDTO: " + JsonPrinter.toString(usuario));
 
-        List<Usuario> usuarioBuscado = usuarioRepository.findByCedula(usuario.getCedula());
+        List<Usuario> usuarioBuscadoCedula = usuarioRepository.findByCedula(usuario.getCedula());
+        Usuario usuarioBuscadoEmail = usuarioRepository.findOneByEmail(usuario.getEmail()).orElse(null);
         //Usuario usuarioBuscado = null;
 
 
-        if(usuarioBuscado.size()>0){
+        if(usuarioBuscadoCedula.size()>0){
             LOGGER.info("Usuario ya registrado");
             return "La cedula ya se encuentra registrado";
         }
 
+        if(usuarioBuscadoEmail != null){
+            LOGGER.info("Correo ya registrado");
+            return "El correo ya se encuentra registrado";
+        }
+
         Usuario usuarioEntidad = modelMapper.map(usuario, Usuario.class);
         LOGGER.info("Usuario Entidad Entrada: " + JsonPrinter.toString(usuarioEntidad));
+
+        //Se encripta la contraseña
+        usuarioEntidad.setContraseña(passwordEncoder.encode(usuarioEntidad.getContraseña()));
 
         //mandamos a persistir a la capa dao y obtenemos una entidad
         Usuario usuarioAPersistir = usuarioRepository.save(usuarioEntidad);
@@ -62,6 +73,7 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioSalidaDto iniciarSesion(UsuarioLoginEntradaDto usuario) {
+
 
         LOGGER.info("UsuarioLoginEntradaDto: " + JsonPrinter.toString(usuario));
 
@@ -82,6 +94,7 @@ public class UsuarioService implements IUsuarioService {
             LOGGER.info("Usuario no existe ");
             return null;
         }
+
     }
 
     @Override

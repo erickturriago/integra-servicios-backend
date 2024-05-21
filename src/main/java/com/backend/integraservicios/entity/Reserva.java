@@ -35,14 +35,8 @@ public class Reserva {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "reserva_recurso",
-            joinColumns = @JoinColumn(name = "reserva_id"),
-            inverseJoinColumns = @JoinColumn(name = "recurso_id")
-    )
-    private List<Recurso> recursos = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "recurso_id", nullable = false)
+    private Recurso recurso;
 
 }

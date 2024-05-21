@@ -42,4 +42,10 @@ public class ReservaController {
     public ResponseEntity<List<ReservaSalidaDto>> listarReservasPorUsuario(@PathVariable Long id) throws BadRequestException {
         return new ResponseEntity<>(reservaService.listarReservasPorUsuario(id), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping("/recurso/{id}")
+    public ResponseEntity<List<ReservaSalidaDto>> listarReservasPorRecurso(@PathVariable Long id) throws BadRequestException {
+        return new ResponseEntity<>(reservaService.listarReservasPorRecurso(id), HttpStatus.OK);
+    }
 }

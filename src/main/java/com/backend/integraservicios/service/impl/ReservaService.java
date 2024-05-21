@@ -101,7 +101,16 @@ public class ReservaService implements IReservaService {
         List<ReservaSalidaDto> reservas = reservaRepository.findByUsuario_Id(id).stream()
                 .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
 
-        LOGGER.info("Reserva djs por estilo");
+        LOGGER.info("Reservas por Usuario");
+        return reservas;
+    }
+
+    @Override
+    public List<ReservaSalidaDto> listarReservasPorRecurso(Long id) {
+        List<ReservaSalidaDto> reservas = reservaRepository.findByRecurso_Id(id).stream()
+                .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
+
+        LOGGER.info("Reserva por recurso");
         return reservas;
     }
 

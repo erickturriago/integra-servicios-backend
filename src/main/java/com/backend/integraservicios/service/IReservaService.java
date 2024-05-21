@@ -14,6 +14,7 @@ public interface IReservaService {
     List<ReservaSalidaDto> listarReservas() throws BadRequestException;
 
     List<ReservaSalidaDto> listarReservasPorUsuario(Long id);
+    List<ReservaSalidaDto> listarReservasPorRecurso(Long id);
 
     //TurnoSalidaDto buscarTurnoPorId(Long id);
 

@@ -31,6 +31,10 @@ public class Reserva {
     private LocalDate fechaCreacion;
     private LocalDate fechaDevolucion;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE

@@ -97,6 +97,16 @@ public class ReservaService implements IReservaService {
     }
 
     @Override
+    public List<ReservaSalidaDto> listarReservasPorUsuario(Long id) {
+        List<ReservaSalidaDto> reservas = reservaRepository.findByUsuario_Id(id).stream()
+                .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
+
+        LOGGER.info("Reserva djs por estilo");
+        return reservas;
+    }
+
+
+    @Override
     public void eliminarReserva(Long id) throws ResourceNotFoundException {
 
     }

@@ -65,6 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Construir el cuerpo de la respuesta
         Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("id", userDetails.getId());
         responseBody.put("nombre", userDetails.getNombre());
         responseBody.put("cedula", userDetails.getCedula());
         responseBody.put("email", userDetails.getUsername());

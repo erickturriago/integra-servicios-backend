@@ -63,6 +63,9 @@ public class UserDetailsImpl implements UserDetails {
     public String getNombre(){
         return usuario.getFullname();
     }
+    public Long getId(){
+        return usuario.getId();
+    }
     public int getCedula(){
         return usuario.getCedula();
     }

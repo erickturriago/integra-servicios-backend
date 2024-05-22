@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.entrada.reserva;
+package com.backend.integraservicios.dto.entrada;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

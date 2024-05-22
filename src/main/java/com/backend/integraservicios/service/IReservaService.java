@@ -1,7 +1,7 @@
 package com.backend.integraservicios.service;
 
-import com.backend.integraservicios.dto.entrada.reserva.ReservaEntradaDto;
-import com.backend.integraservicios.dto.salida.reserva.ReservaSalidaDto;
+import com.backend.integraservicios.dto.entrada.ReservaEntradaDto;
+import com.backend.integraservicios.dto.salida.ReservaSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 
@@ -16,10 +16,10 @@ public interface IReservaService {
     List<ReservaSalidaDto> listarReservasPorUsuario(Long id);
     List<ReservaSalidaDto> listarReservasPorRecurso(Long id);
 
-    //TurnoSalidaDto buscarTurnoPorId(Long id);
+    ReservaSalidaDto buscarReservaPorId(Long id) throws ResourceNotFoundException;
 
     //TurnoSalidaDto actualizarTurno(TurnoModificacionEntradaDto turno);
 
-    void eliminarReserva(Long id) throws ResourceNotFoundException;
+    ReservaSalidaDto eliminarReserva(Long id) throws ResourceNotFoundException;
 
 }

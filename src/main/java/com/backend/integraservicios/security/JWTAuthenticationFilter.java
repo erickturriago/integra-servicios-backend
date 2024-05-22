@@ -1,24 +1,17 @@
 package com.backend.integraservicios.security;
 
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
 import com.backend.integraservicios.service.impl.UsuarioService;
-import com.backend.integraservicios.utils.JsonPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

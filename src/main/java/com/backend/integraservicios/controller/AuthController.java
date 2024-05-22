@@ -1,18 +1,14 @@
 package com.backend.integraservicios.controller;
 
-import com.backend.integraservicios.dto.entrada.unidad.UnidadEntradaDto;
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioEntradaDto;
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
-import com.backend.integraservicios.exceptions.BadRequestException;
+import com.backend.integraservicios.dto.entrada.UsuarioEntradaDto;
+import com.backend.integraservicios.dto.entrada.UsuarioLoginEntradaDto;
+import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
 import com.backend.integraservicios.security.AuthCredentials;
 import com.backend.integraservicios.security.UserDetailsImpl;
 import com.backend.integraservicios.security.TokenUtils;
-import com.backend.integraservicios.service.impl.UnidadService;
 import com.backend.integraservicios.service.impl.UsuarioService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.json.JSONFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

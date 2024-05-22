@@ -1,7 +1,7 @@
 package com.backend.integraservicios.controller;
 
-import com.backend.integraservicios.dto.entrada.reserva.ReservaEntradaDto;
-import com.backend.integraservicios.dto.salida.reserva.ReservaSalidaDto;
+import com.backend.integraservicios.dto.entrada.ReservaEntradaDto;
+import com.backend.integraservicios.dto.salida.ReservaSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.service.impl.ReservaService;
 import com.backend.integraservicios.utils.JsonPrinter;

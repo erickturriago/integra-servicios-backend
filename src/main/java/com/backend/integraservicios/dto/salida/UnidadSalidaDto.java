@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.salida.unidad;
+package com.backend.integraservicios.dto.salida;
 
 import com.backend.integraservicios.entity.Dia;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

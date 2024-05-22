@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.entrada.horarioDisponbielRecurso;
+package com.backend.integraservicios.dto.entrada;
 
 import com.backend.integraservicios.entity.Dia;
 import com.backend.integraservicios.entity.HorarioDisponibleRecurso;

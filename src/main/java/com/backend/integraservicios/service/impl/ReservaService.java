@@ -1,9 +1,9 @@
 package com.backend.integraservicios.service.impl;
 
-import com.backend.integraservicios.dto.entrada.reserva.ReservaEntradaDto;
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
-import com.backend.integraservicios.dto.salida.reserva.ReservaSalidaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
+import com.backend.integraservicios.dto.entrada.ReservaEntradaDto;
+import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
+import com.backend.integraservicios.dto.salida.ReservaSalidaDto;
+import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
 import com.backend.integraservicios.entity.Recurso;
 import com.backend.integraservicios.entity.Reserva;
 import com.backend.integraservicios.entity.Unidad;
@@ -18,7 +18,6 @@ import com.backend.integraservicios.service.IReservaService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -26,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Entity;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -114,10 +112,35 @@ public class ReservaService implements IReservaService {
         return reservas;
     }
 
+    @Override
+    public ReservaSalidaDto buscarReservaPorId(Long id) throws ResourceNotFoundException{
+        Reserva reservaBuscada = reservaRepository.findById(id).orElse(null);
+
+        ReservaSalidaDto reservaSalidaDto = null;
+        if (reservaBuscada != null) {
+            reservaSalidaDto = modelMapper.map(reservaBuscada, ReservaSalidaDto.class);
+            LOGGER.info("Reserva encontrado: {}", reservaSalidaDto);
+        } else {
+            LOGGER.error("El id no se encuentra registrado en la base de datos");
+            throw new ResourceNotFoundException("El id no se encuentra registrado en la base de datos");
+        }
+
+        return reservaSalidaDto;
+    }
+
 
     @Override
-    public void eliminarReserva(Long id) throws ResourceNotFoundException {
-
+    public ReservaSalidaDto eliminarReserva(Long id) throws ResourceNotFoundException {
+        ReservaSalidaDto reservaAEliminar = null;
+        reservaAEliminar = buscarReservaPorId(id);
+        if (reservaAEliminar != null) {
+            reservaRepository.deleteById(id);
+            LOGGER.warn("Se ha eliminado la reserva con id: {}", id);
+        } else {
+            LOGGER.error("No se ha encontrado la reserva con id {}", id);
+            throw new ResourceNotFoundException("No se ha encontrado la reserva con id " + id);
+        }
+        return reservaAEliminar;
     }
 
     @PostConstruct

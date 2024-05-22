@@ -1,14 +1,10 @@
 package com.backend.integraservicios.controller;
 
-import com.backend.integraservicios.dto.entrada.recurso.RecursoEntradaDto;
-import com.backend.integraservicios.dto.entrada.unidad.UnidadEntradaDto;
-import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
+import com.backend.integraservicios.dto.entrada.UnidadEntradaDto;
 import com.backend.integraservicios.dto.modificacion.UnidadModificacionDto;
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
-import com.backend.integraservicios.dto.salida.unidad.UnidadSalidaDto;
+import com.backend.integraservicios.dto.salida.UnidadSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
-import com.backend.integraservicios.service.impl.RecursoService;
 import com.backend.integraservicios.service.impl.UnidadService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import org.slf4j.Logger;

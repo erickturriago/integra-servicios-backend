@@ -1,24 +1,16 @@
 package com.backend.integraservicios.controller;
 
-import com.backend.integraservicios.dto.entrada.recurso.RecursoEntradaDto;
-import com.backend.integraservicios.dto.modificacion.OdontologoModificacionEntradaDto;
+import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
-import com.backend.integraservicios.dto.salida.odontologo.OdontologoSalidaDto;
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
+import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.service.impl.RecursoService;
 import com.backend.integraservicios.utils.JsonPrinter;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

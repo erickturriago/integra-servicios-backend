@@ -1,11 +1,10 @@
 package com.backend.integraservicios.service.impl;
 
-import com.backend.integraservicios.dto.entrada.horarioDisponbielRecurso.HorarioDisponibleRecursoEntradaDto;
-import com.backend.integraservicios.dto.entrada.recurso.RecursoEntradaDto;
+import com.backend.integraservicios.dto.entrada.HorarioDisponibleRecursoEntradaDto;
+import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.HorarioDisponibleRecursoModificacionDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
-import com.backend.integraservicios.dto.salida.odontologo.OdontologoSalidaDto;
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
+import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.entity.*;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
@@ -17,7 +16,6 @@ import com.backend.integraservicios.service.IRecursoService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

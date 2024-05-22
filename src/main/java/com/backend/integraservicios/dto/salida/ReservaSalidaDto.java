@@ -1,7 +1,5 @@
-package com.backend.integraservicios.dto.salida.reserva;
+package com.backend.integraservicios.dto.salida;
 
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

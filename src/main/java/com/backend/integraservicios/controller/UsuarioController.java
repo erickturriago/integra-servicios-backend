@@ -1,11 +1,8 @@
 package com.backend.integraservicios.controller;
 
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioEntradaDto;
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
-import com.backend.integraservicios.dto.modificacion.UnidadModificacionDto;
+import com.backend.integraservicios.dto.entrada.UsuarioEntradaDto;
 import com.backend.integraservicios.dto.modificacion.UsuarioModificacionEntradaDto;
-import com.backend.integraservicios.dto.salida.unidad.UnidadSalidaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
+import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.service.IUsuarioService;
@@ -19,9 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")

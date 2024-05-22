@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.salida.odontologo;
+package com.backend.integraservicios.dto.salida;
 
 public class OdontologoSalidaDto {
 

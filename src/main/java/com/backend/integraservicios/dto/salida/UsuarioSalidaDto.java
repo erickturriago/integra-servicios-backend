@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.salida.usuario;
+package com.backend.integraservicios.dto.salida;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

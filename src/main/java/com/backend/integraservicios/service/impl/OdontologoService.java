@@ -2,16 +2,15 @@ package com.backend.integraservicios.service.impl;
 
 
 
-import com.backend.integraservicios.dto.entrada.odontologo.OdontologoEntradaDto;
+import com.backend.integraservicios.dto.entrada.OdontologoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.OdontologoModificacionEntradaDto;
-import com.backend.integraservicios.dto.salida.odontologo.OdontologoSalidaDto;
+import com.backend.integraservicios.dto.salida.OdontologoSalidaDto;
 import com.backend.integraservicios.entity.Odontologo;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.repository.OdontologoRepository;
 import com.backend.integraservicios.service.IOdontologoService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Entity;
 import java.util.List;
 
 

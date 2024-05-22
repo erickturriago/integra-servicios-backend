@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.entrada.usuario;
+package com.backend.integraservicios.dto.entrada;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,15 +1,12 @@
-package com.backend.integraservicios.dto.entrada.recurso;
+package com.backend.integraservicios.dto.entrada;
 
-import com.backend.integraservicios.dto.entrada.horarioDisponbielRecurso.HorarioDisponibleRecursoEntradaDto;
-import com.backend.integraservicios.entity.HorarioDisponibleRecurso;
-import com.backend.integraservicios.entity.Unidad;
+import com.backend.integraservicios.dto.entrada.HorarioDisponibleRecursoEntradaDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

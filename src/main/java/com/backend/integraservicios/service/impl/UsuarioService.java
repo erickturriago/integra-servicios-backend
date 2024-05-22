@@ -1,12 +1,9 @@
 package com.backend.integraservicios.service.impl;
 
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioEntradaDto;
-import com.backend.integraservicios.dto.entrada.usuario.UsuarioLoginEntradaDto;
+import com.backend.integraservicios.dto.entrada.UsuarioEntradaDto;
+import com.backend.integraservicios.dto.entrada.UsuarioLoginEntradaDto;
 import com.backend.integraservicios.dto.modificacion.UsuarioModificacionEntradaDto;
-import com.backend.integraservicios.dto.salida.reserva.ReservaSalidaDto;
-import com.backend.integraservicios.dto.salida.unidad.UnidadSalidaDto;
-import com.backend.integraservicios.dto.salida.usuario.UsuarioSalidaDto;
-import com.backend.integraservicios.entity.Unidad;
+import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
 import com.backend.integraservicios.entity.Usuario;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
@@ -15,18 +12,14 @@ import com.backend.integraservicios.service.IUsuarioService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Entity;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -129,8 +122,35 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public UsuarioSalidaDto actualizarUsuario(UsuarioModificacionEntradaDto usuario) {
-        return null;
+    public UsuarioSalidaDto actualizarUsuario(UsuarioModificacionEntradaDto usuario) throws ResourceNotFoundException,BadRequestException {
+        Usuario usuarioAActualizar = modelMapper.map(buscarUsuarioPorId(usuario.getId()),Usuario.class);
+
+        if(usuarioAActualizar==null){
+            throw new ResourceNotFoundException("El usuario no existe");
+        }
+
+        List<Usuario> usuarioBuscadoCedula = usuarioRepository.findByCedula(usuario.getCedula());
+        Usuario usuarioBuscadoEmail = usuarioRepository.findOneByEmail(usuario.getEmail()).orElse(null);
+
+
+        if(!usuarioBuscadoCedula.isEmpty() && usuarioBuscadoCedula.get(0).getId()!= usuario.getId()){
+            LOGGER.info("Usuario ya registrado");
+            throw new BadRequestException("La cedula ya se encuentra registrado");
+        }
+
+        if(usuarioBuscadoEmail != null && usuarioBuscadoEmail.getId()!= usuario.getId()){
+            LOGGER.info("Correo ya registrado");
+            throw new BadRequestException("El correo ya se encuentra registrado");
+        }
+
+        usuarioAActualizar.setFullname(usuario.getFullname());
+        usuarioAActualizar.setRol(usuario.getRol());
+        usuarioAActualizar.setEmail(usuario.getEmail());
+        usuarioAActualizar.setCedula(usuario.getCedula());
+
+        return modelMapper.map(usuarioRepository.save(usuarioAActualizar),UsuarioSalidaDto.class);
+
+
     }
 
     @Override

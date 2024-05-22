@@ -1,8 +1,8 @@
 package com.backend.integraservicios.service;
 
-import com.backend.integraservicios.dto.entrada.recurso.RecursoEntradaDto;
+import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
-import com.backend.integraservicios.dto.salida.recurso.RecursoSalidaDto;
+import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 

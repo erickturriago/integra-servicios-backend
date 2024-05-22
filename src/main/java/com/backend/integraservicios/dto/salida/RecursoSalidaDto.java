@@ -1,7 +1,6 @@
-package com.backend.integraservicios.dto.salida.recurso;
+package com.backend.integraservicios.dto.salida;
 
-import com.backend.integraservicios.dto.salida.horarioDisponbielRecurso.HorarioDisponibleRecursoSalidaDto;
-import com.backend.integraservicios.entity.HorarioDisponibleRecurso;
+import com.backend.integraservicios.dto.salida.HorarioDisponibleRecursoSalidaDto;
 import com.backend.integraservicios.entity.Unidad;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

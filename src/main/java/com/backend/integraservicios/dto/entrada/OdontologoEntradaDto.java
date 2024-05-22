@@ -1,4 +1,4 @@
-package com.backend.integraservicios.dto.entrada.odontologo;
+package com.backend.integraservicios.dto.entrada;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

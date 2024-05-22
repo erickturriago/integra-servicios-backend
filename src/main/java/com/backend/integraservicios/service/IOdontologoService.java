@@ -1,8 +1,8 @@
 package com.backend.integraservicios.service;
 
-import com.backend.integraservicios.dto.entrada.odontologo.OdontologoEntradaDto;
+import com.backend.integraservicios.dto.entrada.OdontologoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.OdontologoModificacionEntradaDto;
-import com.backend.integraservicios.dto.salida.odontologo.OdontologoSalidaDto;
+import com.backend.integraservicios.dto.salida.OdontologoSalidaDto;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 
 import java.util.List;

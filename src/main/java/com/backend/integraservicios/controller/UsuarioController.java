@@ -30,7 +30,6 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-
     @PostMapping("/registrar")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) {
@@ -41,7 +40,7 @@ public class UsuarioController {
 
     //GET
     @GetMapping("{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<UsuarioSalidaDto> obtenerUsuarioPorId(@PathVariable Long id) {
         return new ResponseEntity<>(usuarioService.buscarUsuarioPorId(id), HttpStatus.OK);
     }

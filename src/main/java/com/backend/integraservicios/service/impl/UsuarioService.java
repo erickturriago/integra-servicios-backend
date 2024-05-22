@@ -112,7 +112,12 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioSalidaDto buscarUsuarioPorId(Long id) {
-        return null;
+        //System.out.println(JsonPrinter.toString(usuarioRepository.findById(id)));
+        Usuario usuarioEntidad = usuarioRepository.findById(id).orElse(null);
+
+        System.out.println(JsonPrinter.toString(usuarioEntidad));
+
+        return modelMapper.map(usuarioEntidad,UsuarioSalidaDto.class);
     }
 
     @Override

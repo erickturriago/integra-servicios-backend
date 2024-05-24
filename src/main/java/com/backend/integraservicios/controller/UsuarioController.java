@@ -31,7 +31,7 @@ public class UsuarioController {
 
     @PostMapping("/registrar")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) {
+    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) throws BadRequestException{
         LOGGER.info("Inicia registro");
         LOGGER.info("Usuario request: "+ JsonPrinter.toString(usuario));
         return new ResponseEntity<>(usuarioService.registrarUsuario(usuario), HttpStatus.OK);

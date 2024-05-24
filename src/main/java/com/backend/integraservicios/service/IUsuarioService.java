@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IUsuarioService {
 
-    Object registrarUsuario(UsuarioEntradaDto usuario);
+    Object registrarUsuario(UsuarioEntradaDto usuario) throws BadRequestException;
     UsuarioSalidaDto iniciarSesion(UsuarioLoginEntradaDto usuario);
     List<UsuarioSalidaDto> listarUsuarios();
     UsuarioSalidaDto buscarUsuarioPorId(Long id) throws ResourceNotFoundException;

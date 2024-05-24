@@ -3,6 +3,7 @@ package com.backend.integraservicios.controller;
 import com.backend.integraservicios.dto.entrada.UsuarioEntradaDto;
 import com.backend.integraservicios.dto.entrada.UsuarioLoginEntradaDto;
 import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
+import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.security.AuthCredentials;
 import com.backend.integraservicios.security.UserDetailsImpl;
 import com.backend.integraservicios.security.TokenUtils;
@@ -70,7 +71,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) {
+    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody UsuarioEntradaDto usuario) throws BadRequestException {
         LOGGER.info("Inicia registro");
         LOGGER.info("Usuario request: "+ JsonPrinter.toString(usuario));
         return new ResponseEntity<>(usuarioService.registrarUsuario(usuario), HttpStatus.OK);

@@ -35,7 +35,7 @@ public class UsuarioService implements IUsuarioService {
     private ModelMapper modelMapper;
 
     @Override
-    public Object registrarUsuario(UsuarioEntradaDto usuario) {
+    public Object registrarUsuario(UsuarioEntradaDto usuario) throws BadRequestException{
         //convertimos mediante el mapper de dtoEntrada a entidad
         LOGGER.info("UsuarioEntradaDTO: " + JsonPrinter.toString(usuario));
 
@@ -46,12 +46,12 @@ public class UsuarioService implements IUsuarioService {
 
         if(usuarioBuscadoCedula.size()>0){
             LOGGER.info("Usuario ya registrado");
-            return "La cedula ya se encuentra registrado";
+            throw new BadRequestException("Cedula ya registrada");
         }
 
         if(usuarioBuscadoEmail != null){
             LOGGER.info("Correo ya registrado");
-            return "El correo ya se encuentra registrado";
+            throw new BadRequestException("Correo ya registrado");
         }
 
         Usuario usuarioEntidad = modelMapper.map(usuario, Usuario.class);

@@ -15,6 +15,8 @@ public interface IUsuarioService {
     UsuarioSalidaDto iniciarSesion(UsuarioLoginEntradaDto usuario);
     List<UsuarioSalidaDto> listarUsuarios();
     UsuarioSalidaDto buscarUsuarioPorId(Long id) throws ResourceNotFoundException;
+
+    UsuarioSalidaDto buscarUsuarioPorEmail(String email) throws ResourceNotFoundException;
     UsuarioSalidaDto actualizarUsuario(UsuarioModificacionEntradaDto usuario) throws ResourceNotFoundException, BadRequestException;
     UsuarioSalidaDto eliminarUsuario(Long id) throws ResourceNotFoundException;
 }

@@ -43,15 +43,15 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuarioBuscadoEmail = usuarioRepository.findOneByEmail(usuario.getEmail()).orElse(null);
         //Usuario usuarioBuscado = null;
 
+        if(usuarioBuscadoEmail != null){
+            LOGGER.info("Correo ya registrado");
+            throw new BadRequestException("Correo ya registrado");
+        }
+
 
         if(usuarioBuscadoCedula.size()>0){
             LOGGER.info("Usuario ya registrado");
             throw new BadRequestException("Cedula ya registrada");
-        }
-
-        if(usuarioBuscadoEmail != null){
-            LOGGER.info("Correo ya registrado");
-            throw new BadRequestException("Correo ya registrado");
         }
 
         Usuario usuarioEntidad = modelMapper.map(usuario, Usuario.class);
@@ -116,6 +116,22 @@ public class UsuarioService implements IUsuarioService {
         } else {
             LOGGER.error("El id no se encuentra registrado en la base de datos");
             throw new ResourceNotFoundException("El id no se encuentra registrado en la base de datos");
+        }
+
+        return usuarioSalidaDto;
+    }
+
+    @Override
+    public UsuarioSalidaDto buscarUsuarioPorEmail(String email) throws ResourceNotFoundException{
+        Usuario usuarioBuscado = usuarioRepository.findOneByEmail(email).orElse(null);
+
+        UsuarioSalidaDto usuarioSalidaDto = null;
+        if (usuarioBuscado != null) {
+            usuarioSalidaDto = modelMapper.map(usuarioBuscado, UsuarioSalidaDto.class);
+            LOGGER.info("Usuario encontrado: {}", usuarioSalidaDto);
+        } else {
+            LOGGER.error("El email no se encuentra registrado en la base de datos");
+            throw new ResourceNotFoundException("El email no se encuentra registrado en la base de datos");
         }
 
         return usuarioSalidaDto;

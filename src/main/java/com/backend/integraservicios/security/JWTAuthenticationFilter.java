@@ -63,6 +63,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         responseBody.put("cedula", userDetails.getCedula());
         responseBody.put("email", userDetails.getUsername());
         responseBody.put("rol", userDetails.getAuthorities().iterator().next().getAuthority());
+        responseBody.put("token", "Bearer "+ token);
         // Agrega más información si es necesario
 
         // Convertir el cuerpo de la respuesta a JSON
@@ -80,5 +81,31 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("successfulAuthentication");
 
         super.successfulAuthentication(request, response, chain, authResult);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request,
+                                              HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        // Construir el cuerpo de la respuesta
+        Map<String, Object> responseBody = new HashMap<>();
+
+        //usuarioService.buscarUsuarioPorEmail()
+
+        responseBody.put("error", "Autenticación inválida");
+        responseBody.put("mensaje", "Valide su correo y contraseña");
+
+        // Convertir el cuerpo de la respuesta a JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        String responseBodyJson = objectMapper.writeValueAsString(responseBody);
+
+        // Configurar el encabezado de respuesta para indicar el tipo de contenido
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        // Escribir el cuerpo de la respuesta en el HttpServletResponse
+        response.getWriter().write(responseBodyJson);
+        response.getWriter().flush();
     }
 }

@@ -11,16 +11,11 @@ import java.util.List;
 public interface IReservaService {
 
     Object registrarReserva(ReservaEntradaDto reserva) throws BadRequestException;
-
     ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto);
-
     List<ReservaSalidaDto> listarReservas() throws BadRequestException;
-
     List<ReservaSalidaDto> listarReservasPorUsuario(Long id);
     List<ReservaSalidaDto> listarReservasPorRecurso(Long id);
-
     ReservaSalidaDto buscarReservaPorId(Long id) throws ResourceNotFoundException;
-
-    ReservaSalidaDto eliminarReserva(Long id) throws ResourceNotFoundException;
+    ReservaSalidaDto cancelarReserva(Long id) throws ResourceNotFoundException;
 
 }

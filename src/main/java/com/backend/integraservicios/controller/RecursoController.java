@@ -37,7 +37,7 @@ public class RecursoController {
         //return new ResponseEntity<>("Hecho", HttpStatus.OK);
     }
 
-    @PutMapping("actualizar")
+    @PutMapping("/actualizar")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<RecursoSalidaDto> actualizarRecurso(@Valid @RequestBody RecursoModificacionDto recurso) throws ResourceNotFoundException,BadRequestException {
         return new ResponseEntity<>(recursoService.actualizarRecurso(recurso), HttpStatus.OK);

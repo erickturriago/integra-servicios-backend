@@ -129,17 +129,17 @@ public class ReservaService implements IReservaService {
 
 
     @Override
-    public ReservaSalidaDto eliminarReserva(Long id) throws ResourceNotFoundException {
-        ReservaSalidaDto reservaAEliminar = null;
-        reservaAEliminar = buscarReservaPorId(id);
-        if (reservaAEliminar != null) {
-            reservaRepository.deleteById(id);
-            LOGGER.warn("Se ha eliminado la reserva con id: {}", id);
+    public ReservaSalidaDto cancelarReserva(Long id) throws ResourceNotFoundException {
+        Reserva reservaACancelar = reservaRepository.findById(id).orElse(null);
+        if (reservaACancelar != null) {
+            reservaACancelar.setEstado("Cancelada");
+            reservaRepository.save(reservaACancelar);
+            LOGGER.warn("Se ha cancelado la reserva con id: {}", id);
         } else {
             LOGGER.error("No se ha encontrado la reserva con id {}", id);
             throw new ResourceNotFoundException("No se ha encontrado la reserva con id " + id);
         }
-        return reservaAEliminar;
+        return modelMapper.map(reservaACancelar,ReservaSalidaDto.class);
     }
 
     @PostConstruct

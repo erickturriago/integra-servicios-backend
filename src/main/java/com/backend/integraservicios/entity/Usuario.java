@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -37,7 +38,7 @@ public class Usuario {
 
     @Column(length = 50)
     private int cedula;
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaRegistro;
 
     private int rol;
 }

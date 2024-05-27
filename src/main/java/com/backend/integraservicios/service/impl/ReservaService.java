@@ -1,6 +1,7 @@
 package com.backend.integraservicios.service.impl;
 
 import com.backend.integraservicios.dto.entrada.ReservaEntradaDto;
+import com.backend.integraservicios.dto.modificacion.ReservaModificacionDto;
 import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.dto.salida.ReservaSalidaDto;
 import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
@@ -57,16 +58,6 @@ public class ReservaService implements IReservaService {
             return "El usuario no existe";
         }
 
-        Unidad unidadReserva = unidadRepository.findById(recursoReserva.getUnidad().getId()).orElse(null);
-
-        LocalDateTime fechaHoraInicial = LocalDateTime.parse(reserva.getFechaInicio() + "T" + reserva.getHoraInicio());
-        LocalDateTime fechaHoraFinal = LocalDateTime.parse(reserva.getFechaFin() + "T" + reserva.getHoraFin());
-        long tiempoReserva = Duration.between(fechaHoraInicial, fechaHoraFinal).toMinutes();
-        LOGGER.info("Tiempo reserva: "+tiempoReserva);
-
-        if(tiempoReserva>unidadReserva.getTiempoMaximo() || tiempoReserva<unidadReserva.getTiempoMinimo()){
-            return "Tiempo de reserva inválido";
-        }
 
         Reserva reservaEntidad = modelMapper.map(reserva,Reserva.class);
         Reserva reservaGuardada = reservaRepository.save(reservaEntidad);
@@ -78,6 +69,12 @@ public class ReservaService implements IReservaService {
 
         return reservaSalida;
     }
+
+    @Override
+    public ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto) {
+        return null;
+    }
+
 
     @Override
     public List<ReservaSalidaDto> listarReservas() throws BadRequestException {
@@ -100,6 +97,7 @@ public class ReservaService implements IReservaService {
                 .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
 
         LOGGER.info("Reservas por Usuario");
+        LOGGER.info(JsonPrinter.toString(reservas));
         return reservas;
     }
 
@@ -109,6 +107,7 @@ public class ReservaService implements IReservaService {
                 .map(r -> modelMapper.map(r, ReservaSalidaDto.class)).toList();
 
         LOGGER.info("Reserva por recurso");
+        LOGGER.info(JsonPrinter.toString(reservas));
         return reservas;
     }
 

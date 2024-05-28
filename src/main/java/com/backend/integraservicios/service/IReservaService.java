@@ -11,7 +11,7 @@ import java.util.List;
 public interface IReservaService {
 
     Object registrarReserva(ReservaEntradaDto reserva) throws BadRequestException;
-    ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto);
+    ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto) throws ResourceNotFoundException;
     List<ReservaSalidaDto> listarReservas() throws BadRequestException;
     List<ReservaSalidaDto> listarReservasPorUsuario(Long id);
     List<ReservaSalidaDto> listarReservasPorRecurso(Long id);

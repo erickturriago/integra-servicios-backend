@@ -4,11 +4,9 @@ import com.backend.integraservicios.dto.entrada.ReservaEntradaDto;
 import com.backend.integraservicios.dto.modificacion.ReservaModificacionDto;
 import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.dto.salida.ReservaSalidaDto;
+import com.backend.integraservicios.dto.salida.UnidadSalidaDto;
 import com.backend.integraservicios.dto.salida.UsuarioSalidaDto;
-import com.backend.integraservicios.entity.Recurso;
-import com.backend.integraservicios.entity.Reserva;
-import com.backend.integraservicios.entity.Unidad;
-import com.backend.integraservicios.entity.Usuario;
+import com.backend.integraservicios.entity.*;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
 import com.backend.integraservicios.repository.RecursoRepository;
@@ -28,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -71,8 +70,24 @@ public class ReservaService implements IReservaService {
     }
 
     @Override
-    public ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto) {
-        return null;
+    public ReservaSalidaDto actualizarReserva(ReservaModificacionDto reservaModificacionDto) throws ResourceNotFoundException{
+        LOGGER.info("ReservaModificacionDto: " + JsonPrinter.toString(reservaModificacionDto));
+
+        Recurso recursoReserva = recursoRepository.findById(reservaModificacionDto.getIdRecurso()).orElse(null);
+        Usuario usuarioReserva = usuarioRepository.findById(reservaModificacionDto.getIdUsuario()).orElse(null);
+
+        if(recursoReserva==null){
+            throw new ResourceNotFoundException("El recurso no existe");
+        }
+        if(usuarioReserva==null){
+            throw new ResourceNotFoundException("El usuario no existe");
+        }
+
+        Reserva reservaAActualizar = modelMapper.map(reservaModificacionDto,Reserva.class);
+        reservaAActualizar.setUsuario(usuarioReserva);
+        reservaAActualizar.setRecurso(recursoReserva);
+
+        return modelMapper.map(reservaRepository.save(reservaAActualizar),ReservaSalidaDto.class);
     }
 
 

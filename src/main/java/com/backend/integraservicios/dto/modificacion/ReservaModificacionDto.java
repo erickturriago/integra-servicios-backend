@@ -36,7 +36,6 @@ public class ReservaModificacionDto {
     private String horaFin;
 
     @NotNull(message = "La fecha de creación no puede ser nula")
-    @PastOrPresent(message = "La fecha de creación debe ser hoy o en el pasado")
     private LocalDate fechaReserva;
 
     private LocalDateTime fechaCreacion;

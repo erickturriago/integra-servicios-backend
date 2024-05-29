@@ -2,16 +2,15 @@ package com.backend.integraservicios.service.impl;
 
 import com.backend.integraservicios.dto.entrada.HorarioDisponibleRecursoEntradaDto;
 import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
+import com.backend.integraservicios.dto.entrada.RecursoExternoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.HorarioDisponibleRecursoModificacionDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
+import com.backend.integraservicios.dto.salida.RecursoExternoSalidaDto;
 import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.entity.*;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
-import com.backend.integraservicios.repository.DiaRepository;
-import com.backend.integraservicios.repository.HorarioDisponibleRecursoRepository;
-import com.backend.integraservicios.repository.RecursoRepository;
-import com.backend.integraservicios.repository.UnidadRepository;
+import com.backend.integraservicios.repository.*;
 import com.backend.integraservicios.service.IRecursoService;
 import com.backend.integraservicios.utils.JsonPrinter;
 import lombok.AllArgsConstructor;
@@ -36,6 +35,7 @@ public class RecursoService implements IRecursoService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(RecursoService.class);
     private final RecursoRepository recursoRepository;
+    private final RecursoExternoRepository recursoExternoRepository;
     private final DiaRepository diaRepository;
     private final UnidadRepository unidadRepository;
     private final HorarioDisponibleRecursoRepository horarioDisponibleRecursoRepository;
@@ -88,11 +88,20 @@ public class RecursoService implements IRecursoService {
     }
 
     @Override
+    public Object registrarRecursosExternos(List<RecursoExternoEntradaDto> recursos) throws BadRequestException {
+        List<RecursoExternoSalidaDto> recursosExternosSalida = new ArrayList<>();
+        for(RecursoExternoEntradaDto recurso : recursos){
+            RecursoExterno recursoEntidad = modelMapper.map(recurso,RecursoExterno.class);
+            recursosExternosSalida.add(modelMapper.map(recursoExternoRepository.save(recursoEntidad),RecursoExternoSalidaDto.class));
+        }
+        return recursosExternosSalida;
+    }
+
+
+    @Override
     public List<RecursoSalidaDto> listarRecursos() throws BadRequestException{
         List<RecursoSalidaDto> recursos = recursoRepository.findAll().stream()
                 .map(r -> modelMapper.map(r, RecursoSalidaDto.class)).toList();
-
-        //LOGGER.info("Listado de todos los recursos: {}", JsonPrinter.toString(recursos));
 
         return recursos;
     }
@@ -216,5 +225,7 @@ public class RecursoService implements IRecursoService {
         modelMapper.typeMap(RecursoEntradaDto.class, Recurso.class);
         modelMapper.typeMap(Recurso.class, RecursoSalidaDto.class);
         modelMapper.typeMap(RecursoModificacionDto.class,Recurso.class);
+        modelMapper.typeMap(RecursoExternoEntradaDto.class,RecursoExterno.class);
+        modelMapper.typeMap(RecursoExterno.class, RecursoExternoSalidaDto.class);
     }
 }

@@ -1,6 +1,7 @@
 package com.backend.integraservicios.controller;
 
 import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
+import com.backend.integraservicios.dto.entrada.RecursoExternoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
 import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
@@ -34,7 +35,13 @@ public class RecursoController {
     public ResponseEntity<?> registrarRecurso(@RequestBody RecursoEntradaDto recurso) throws BadRequestException {
         LOGGER.info("Recurso: "+ JsonPrinter.toString(recurso));
         return new ResponseEntity<>(recursoService.registrarRecurso(recurso), HttpStatus.OK);
-        //return new ResponseEntity<>("Hecho", HttpStatus.OK);
+    }
+
+    @PostMapping("/registrarExternos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> registrarRecursosExternos(@RequestBody List<RecursoExternoEntradaDto> recursosExternos) throws BadRequestException {
+        LOGGER.info("Recurso: "+ JsonPrinter.toString(recursosExternos));
+        return new ResponseEntity<>(recursoService.registrarRecursosExternos(recursosExternos), HttpStatus.OK);
     }
 
     @PutMapping("/actualizar")

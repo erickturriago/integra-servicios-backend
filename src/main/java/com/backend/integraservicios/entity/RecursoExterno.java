@@ -6,19 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ODONTOLOGOS")
-public class Odontologo {
+@Table(name = "recurso_externo")
+public class RecursoExterno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String matricula;
-    private String nombre;
-    private String apellido;
-
+    Long id;
+    String consecutivoRecurso;
+    String codUnidad;
+    String consecutivoTDR;
+    String codHorario;
+    String nombreRecurso;
+    String estadoRecurso;
+    String valorHora;
 }

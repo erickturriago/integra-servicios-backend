@@ -3,6 +3,7 @@ package com.backend.integraservicios.controller;
 import com.backend.integraservicios.dto.entrada.RecursoEntradaDto;
 import com.backend.integraservicios.dto.entrada.RecursoExternoEntradaDto;
 import com.backend.integraservicios.dto.modificacion.RecursoModificacionDto;
+import com.backend.integraservicios.dto.salida.RecursoExternoSalidaDto;
 import com.backend.integraservicios.dto.salida.RecursoSalidaDto;
 import com.backend.integraservicios.exceptions.BadRequestException;
 import com.backend.integraservicios.exceptions.ResourceNotFoundException;
@@ -55,6 +56,13 @@ public class RecursoController {
     public ResponseEntity<List<RecursoSalidaDto>> listarRecursos() throws BadRequestException {
         LOGGER.info("Inicia endpoint listar recursos");
         return new ResponseEntity<>(recursoService.listarRecursos(), HttpStatus.OK);
+    }
+
+    @GetMapping("/listarExternos")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','ALIADO')")
+    public ResponseEntity<List<RecursoExternoSalidaDto>> listarRecursosExternos() throws BadRequestException {
+        LOGGER.info("Inicia endpoint listar recursos");
+        return new ResponseEntity<>(recursoService.listarRecursosExternos(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")

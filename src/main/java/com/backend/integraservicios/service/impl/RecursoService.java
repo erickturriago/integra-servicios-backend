@@ -107,6 +107,15 @@ public class RecursoService implements IRecursoService {
     }
 
     @Override
+    public List<RecursoExternoSalidaDto> listarRecursosExternos() throws BadRequestException {
+        List<RecursoExternoSalidaDto> recursos = recursoExternoRepository.findAll().stream()
+                .map(r -> modelMapper.map(r, RecursoExternoSalidaDto.class)).toList();
+
+        return recursos;
+    }
+
+
+    @Override
     public RecursoSalidaDto eliminarRecurso(Long id) throws ResourceNotFoundException {
         RecursoSalidaDto recursoAEliminar = null;
         recursoAEliminar = buscarRecursoPorId(id);
